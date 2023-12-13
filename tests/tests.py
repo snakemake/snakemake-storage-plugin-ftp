@@ -20,7 +20,7 @@ class TestStorage(TestStorageBase):
     def get_query_not_existing(self, tmp_path) -> str:
         folder = uuid.uuid4().hex
         filename = uuid.uuid4().hex
-        return f"ftp://{folder}/{filename}.dat"
+        return f"ftp://ftp.dlptest.com/{folder}/{filename}.dat"
 
     def get_storage_provider_cls(self) -> Type[StorageProviderBase]:
         # Return the StorageProvider class of this plugin
@@ -30,19 +30,5 @@ class TestStorage(TestStorageBase):
         # instantiate StorageProviderSettings of this plugin as appropriate
         # see https://dlptest.com/ftp-test/
         return StorageProviderSettings(
-            username="dlpuser", password="rNrKYTX9g7z3RgJRmxWuGHbeu"
+            username="dlpuser", password="rNrKYTX9g7z3RgJRmxWuGHbeu", active_mode=True
         )
-
-
-class TestStorageFTPS(TestStorage):
-    __test__ = True
-
-    def get_query(self, tmp_path) -> str:
-        # Return a query. If retrieve_only is True, this should be a query that
-        # is present in the storage, as it will not be created.
-        return "ftp://ftp.dlptest.com/snakemake-test.md"
-
-    def get_query_not_existing(self, tmp_path) -> str:
-        folder = uuid.uuid4().hex
-        filename = uuid.uuid4().hex
-        return f"ftp://{folder}/{filename}.dat"

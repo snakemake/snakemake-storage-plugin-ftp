@@ -44,6 +44,14 @@ class StorageProviderSettings(StorageProviderSettingsBase):
             "required": False,
         },
     )
+    active_mode: bool = field(
+        default=False,
+        metadata={
+            "help": "Use active mode instead of passive mode",
+            "env_var": True,
+            "required": False,
+        },
+    )
 
 
 class StorageProvider(StorageProviderBase):
@@ -114,12 +122,18 @@ class StorageProvider(StorageProviderBase):
     def get_conn(self, hostname: str, port: Optional[int] = 22, protocol: str = "ftp"):
         key = hostname, port, protocol
         if key not in self.conn_pool:
-            protocol = ftplib.FTP_TLS if protocol == "ftps" else ftplib.FTP
+            cls = ftplib.FTP_TLS if protocol == "ftps" else ftplib.FTP
+            session_factory = ftputil.session.session_factory(
+                base_class=cls,
+                port=port,
+                use_passive_mode=not self.settings.active_mode,
+                encrypt_data_channel=True,
+            )
             conn = ftputil.FTPHost(
-                source_address=(hostname, port),
-                user=self.settings.username,
-                passwd=self.settings.password,
-                session_factory=protocol,
+                hostname,
+                self.settings.username,
+                self.settings.password,
+                session_factory=session_factory,
             )
             self.conn_pool[key] = conn
             return conn
@@ -142,7 +156,9 @@ class StorageObject(StorageObjectRead, StorageObjectWrite, StorageObjectGlob):
         # and set additional attributes.
         self.parsed_query = urlparse(self.query)
         self.conn = self.provider.get_conn(
-            self.parsed_query.hostname, self.parsed_query.port, self.parsed_query.scheme
+            self.parsed_query.hostname,
+            self.parsed_query.port or 21,
+            self.parsed_query.scheme,
         )
 
     async def inventory(self, cache: IOCacheStorageInterface):

@@ -1,0 +1,2 @@
+This plugin allows to transparently handle input and output files on any FTP server, including FTPS.
+For sFTP (FTP over SSH), use the [sftp plugin](https://snakemake.github.io/snakemake-plugin-catalog/plugins/storage/sftp.html) instead.

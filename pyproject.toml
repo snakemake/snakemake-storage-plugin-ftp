@@ -2,9 +2,12 @@
 name = "snakemake-storage-plugin-ftp"
 version = "0.1.0"
 description = ""
-authors = [ "Johannes Koester <johannes.koester@uni-due.de>",]
+authors = [
+    "Christopher Tomkins-Tinch <tomkinsc@broadinstitute.org>",
+    "Johannes Koester <johannes.koester@uni-due.de>"
+]
 readme = "README.md"
-repository = "https://github.com/your/plugin"
+repository = "https://github.com/snakemake/snakemake-storage-plugin-ftp"
 documentation = "https://snakemake.github.io/snakemake-plugin-catalog/plugins/storage/ftp.html"
 
 [tool.poetry.dependencies]

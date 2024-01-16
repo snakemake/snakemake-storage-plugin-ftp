@@ -12,7 +12,7 @@ documentation = "https://snakemake.github.io/snakemake-plugin-catalog/plugins/st
 
 [tool.poetry.dependencies]
 python = "^3.11"
-snakemake-interface-common = "^1.15.0"
+snakemake-interface-common = "^1.15.1"
 snakemake-interface-storage-plugins = "^3.0.0"
 ftputil = "^5.0.4"
 

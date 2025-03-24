@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.1.3](https://github.com/snakemake/snakemake-storage-plugin-ftp/compare/v0.1.2...v0.1.3) (2025-03-24)
+
+
+### Bug Fixes
+
+* adapt to storage plugin interface changes ([#5](https://github.com/snakemake/snakemake-storage-plugin-ftp/issues/5)) ([214d491](https://github.com/snakemake/snakemake-storage-plugin-ftp/commit/214d4913fb1135cd7366931487cc3372fd625c44))
+
 ## [0.1.2](https://github.com/snakemake/snakemake-storage-plugin-ftp/compare/v0.1.1...v0.1.2) (2024-01-16)
 
 
